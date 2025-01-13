@@ -8,3 +8,27 @@ services:
     build:
       context: .
       dockerfile: MediaAPI/Dockerfile
+    networks:
+     - sharednetwork
+
+  postgres-mediaapi:
+    image: postgres:15
+    container_name: postgres-mediaapi
+    environment:
+      POSTGRES_USER: mediaapi
+      POSTGRES_PASSWORD: mediaapi
+      POSTGRES_DB: mediaapi
+    ports:
+      - "5432:5432"
+    volumes:
+      - ${APPDATA}/pgmddata:/var/lib/postgresql/data
+    networks:
+      - sharednetwork
+  
+networks:
+  sharednetwork:
+    driver: bridge
+
+volumes:
+    pgmddata:
+        driver: local
