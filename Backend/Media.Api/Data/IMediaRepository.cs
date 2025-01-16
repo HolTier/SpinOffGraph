@@ -3,7 +3,7 @@ using Shared.DataAccess;
 
 namespace MediaAPI.Data
 {
-    public interface IMediaRepository : IGenericRepository<Media>
+    public interface IMediaRepository : IGenericRepository<MediaItem>
     {
     }
 }

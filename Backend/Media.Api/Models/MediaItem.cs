@@ -1,6 +1,6 @@
 ﻿namespace MediaAPI.Models
 {
-    public class Media
+    public class MediaItem
     {
         // Primary Key
         public int Id { get; set; }

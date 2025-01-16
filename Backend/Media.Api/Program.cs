@@ -16,7 +16,7 @@ namespace MediaAPI
             builder.Services.AddControllers();
 
             // Configure Postgres
-            builder.Services.AddDbContext<MediaDbContext>(options => 
+            builder.Services.AddDbContext<MediaDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

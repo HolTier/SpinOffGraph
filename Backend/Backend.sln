@@ -13,7 +13,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "..\Shared\Shared.csproj", "{CD350CB0-0A9A-440F-98BB-951F66A42D1E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B95810FF-7677-4EE4-98ED-D874439B54AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media.Tests", "..\Media.Tests\Media.Tests.csproj", "{8908BAD2-EDDC-4706-8653-7CEFCF94DBEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,12 +33,17 @@ Global
 		{CD350CB0-0A9A-440F-98BB-951F66A42D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD350CB0-0A9A-440F-98BB-951F66A42D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD350CB0-0A9A-440F-98BB-951F66A42D1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8908BAD2-EDDC-4706-8653-7CEFCF94DBEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8908BAD2-EDDC-4706-8653-7CEFCF94DBEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8908BAD2-EDDC-4706-8653-7CEFCF94DBEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8908BAD2-EDDC-4706-8653-7CEFCF94DBEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D64F03C3-377F-4031-B8E8-B54F557B0CD4} = {3557762D-F1B4-425A-9F9F-3EDC85E473EB}
+		{8908BAD2-EDDC-4706-8653-7CEFCF94DBEB} = {3557762D-F1B4-425A-9F9F-3EDC85E473EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DE3BBBE-B756-4722-AE3C-F860BDB7EEBF}
