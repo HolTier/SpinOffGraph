@@ -5,5 +5,6 @@ namespace Media.Api.Data
 {
     public interface IMediaRepository : IGenericRepository<MediaItem>
     {
+        Task<IEnumerable<MediaItem>> GetByMediaTypeIdAsync(int mediaTypeId);
     }
 }

@@ -5,5 +5,6 @@ namespace Media.Api.Data
 {
     public interface IMediaTypeRepository : IGenericRepository<MediaType>
     {
+        
     }
 }

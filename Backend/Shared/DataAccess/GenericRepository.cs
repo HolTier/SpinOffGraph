@@ -9,7 +9,7 @@ namespace Shared.DataAccess
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly DbContext _context;
+        protected readonly DbContext _context;
         private readonly DbSet<T> _dbSet;
 
         public GenericRepository(DbContext context)
