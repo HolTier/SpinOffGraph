@@ -1,5 +1,5 @@
-﻿using MediaAPI.Data;
-using MediaAPI.Models;
+﻿using Media.Api.Data;
+using Media.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.Extensions.DependencyInjection;
