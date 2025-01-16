@@ -1,4 +1,4 @@
-﻿namespace MediaAPI.Models
+﻿namespace Media.Api.Models
 {
     public class MediaItem
     {

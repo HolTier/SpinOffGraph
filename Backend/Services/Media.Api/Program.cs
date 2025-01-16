@@ -1,9 +1,10 @@
-using MediaAPI.Models;
+using Media.Api.Data;
+using Media.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Shared.DataAccess;
 
 
-namespace MediaAPI
+namespace Media.Api
 {
     public class Program
     {
@@ -24,6 +25,8 @@ namespace MediaAPI
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IMediaRepository, MediaRepository>();
+            builder.Services.AddScoped<IMediaTypeRepository, MediaTypeRepository>();
 
             var app = builder.Build();
 

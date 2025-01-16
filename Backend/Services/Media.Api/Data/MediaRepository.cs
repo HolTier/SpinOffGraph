@@ -1,7 +1,7 @@
-﻿using MediaAPI.Models;
+﻿using Media.Api.Models;
 using Shared.DataAccess;
 
-namespace MediaAPI.Data
+namespace Media.Api.Data
 {
     public class MediaRepository : GenericRepository<MediaItem>, IMediaRepository
     {

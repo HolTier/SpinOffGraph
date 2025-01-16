@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MediaAPI.Models
+namespace Media.Api.Models
 {
     public class MediaDbContext : DbContext
     {

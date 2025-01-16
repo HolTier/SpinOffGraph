@@ -1,4 +1,4 @@
-﻿using MediaAPI.Models;
+﻿using Media.Api.Models;
 using Shared.DataAccess;
 
 namespace Media.Api.Data
