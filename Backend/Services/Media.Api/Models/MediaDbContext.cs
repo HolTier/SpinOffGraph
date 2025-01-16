@@ -7,5 +7,6 @@ namespace MediaAPI.Models
         public MediaDbContext(DbContextOptions<MediaDbContext> options) : base(options) {}
 
         public DbSet<MediaItem> MediaItems { get; set; } = null!;
+        public DbSet<MediaType> MediaTypes { get; set; } = null!;
     }
 }
