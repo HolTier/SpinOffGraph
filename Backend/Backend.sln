@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{35
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{9F174D75-8850-4DFD-875B-4CD4ED63A1F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Media.Api", "Media.Api\Media.Api.csproj", "{D64F03C3-377F-4031-B8E8-B54F557B0CD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Media.Api", "Services\Media.Api\Media.Api.csproj", "{D64F03C3-377F-4031-B8E8-B54F557B0CD4}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A9A4E747-BCA6-49D5-8C65-5641CEED090C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "..\Shared\Shared.csproj", "{CD350CB0-0A9A-440F-98BB-951F66A42D1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{CD350CB0-0A9A-440F-98BB-951F66A42D1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media.Tests", "..\Media.Tests\Media.Tests.csproj", "{8908BAD2-EDDC-4706-8653-7CEFCF94DBEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Media.Tests", "Services\Media.Tests\Media.Tests.csproj", "{8908BAD2-EDDC-4706-8653-7CEFCF94DBEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
