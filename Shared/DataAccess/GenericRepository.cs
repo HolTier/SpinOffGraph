@@ -24,10 +24,10 @@ namespace Shared.DataAccess
             await _context.SaveChangesAsync();
         }
 
-        public void Remove(T entity)
+        public async Task RemoveAsync(T entity)
         {
             _dbSet.Remove(entity);
-            _context.SaveChanges();
+            await SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -50,10 +50,10 @@ namespace Shared.DataAccess
             await _context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
-            _context.SaveChanges();
+            await SaveChangesAsync();
         }
 
         public Task<T?> GetByNameAsync(string name)

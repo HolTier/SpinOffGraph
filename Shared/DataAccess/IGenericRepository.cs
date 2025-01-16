@@ -12,8 +12,8 @@ namespace Shared.DataAccess
         Task<T?> GetByIdAsync(int id);
         Task<T?> GetByNameAsync(string name);
         Task AddAsync(T entity);
-        void Update(T entity);
-        void Remove(T entity);
+        Task UpdateAsync(T entity);
+        Task RemoveAsync(T entity);
         void SaveChanges();
         Task SaveChangesAsync();
     }
