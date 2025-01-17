@@ -119,7 +119,7 @@ namespace Media.Api.Services
         public async Task<bool> ValidateMediaItemByTitleAsync(string title)
         {
             // Title should be at least 2 characters long and at most 100 characters long
-            return await Task.FromResult(title.Length >= 2 && title.Length <= 100);
+            return await Task.FromResult(!String.IsNullOrEmpty(title) && title.Length >= 2 && title.Length <= 100);
         }
     }
 }
