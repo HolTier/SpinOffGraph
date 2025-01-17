@@ -227,6 +227,45 @@ namespace Media.Tests.Services
         }
 
         [Fact]
+        public async Task ValidateMediaItemByGenreAsync_WithValidGenre_ShouldReturnTrue()
+        {
+            // Arrange
+            var genre = new string('T', 2); // Minimum length
+
+            // Act
+            var result = await _mediaService.ValidateMediaItemByGenreAsync(genre);
+
+            // Assert
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("")] // Empty string
+        [InlineData(null)] // Null string
+        [InlineData("T")] // Too short string
+        public async Task ValidateMediaItemByGenreAsync_WithInvalidGenre_ShouldReturnFalse(string genre)
+        {
+            // Act
+            var result = await _mediaService.ValidateMediaItemByGenreAsync(genre);
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task ValidateMediaItemByGenreAsync_WithTooLongGenre_ShouldReturnFalse()
+        {
+            // Arrange
+            var genre = new string('T', 101); // Too long string
+
+            // Act
+            var result = await _mediaService.ValidateMediaItemByGenreAsync(genre);
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
         public async Task AddMediaItemAsync_WithValidItem_ShouldAddItemToDatabase()
         {
             // Arrange
@@ -276,6 +315,191 @@ namespace Media.Tests.Services
 
             // Act & Assert
             await Assert.ThrowsAsync<ArgumentException>(() => _mediaService.AddMediaItemAsync(item));
+        }
+
+        [Fact]
+        public async Task GetMediaItemByIdAsync_WithValidId_ShouldReturnItem()
+        {
+            // Arrange
+            var id = 1;
+            var item = new MediaItem { Id = id, Title = "Test Title" };
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetByIdAsync(id))
+                .ReturnsAsync(item);
+
+            // Act
+            var result = await _mediaService.GetMediaItemByIdAsync(id);
+
+            // Assert
+            Assert.Equal(item, result);
+        }
+
+        [Fact]
+        public async Task GetMediaItemByIdAsync_WithInvalidId_ShouldReturnNull()
+        {
+            // Act
+            var result = await _mediaService.GetMediaItemByIdAsync(1);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task GetMediaItemsAsync_ShouldReturnItems()
+        {
+            // Arrange
+            var mediaItems = new List<MediaItem>
+            {
+                new MediaItem { Id = 1, Title = "Test Title 1" },
+                new MediaItem { Id = 2, Title = "Test Title 2" },
+                new MediaItem { Id = 3, Title = "Test Title 3" }
+            };
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetAllAsync())
+                .ReturnsAsync(mediaItems);
+
+            // Act
+            var result = await _mediaService.GetMediaItemsAsync();
+
+            // Assert
+            Assert.Equal(mediaItems, result);
+        }
+
+        [Fact]
+        public async Task GetMediaItemsWithTitleAsync_WithValidTitle_ShouldReturnItems()
+        {
+            // Arrange
+            var title = "Test Title";
+            var mediaItems = new List<MediaItem>
+            {
+                new MediaItem { Id = 1, Title = title },
+                new MediaItem { Id = 2, Title = title },
+                new MediaItem { Id = 3, Title = title }
+            };
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetByTitleAsync(title))
+                .ReturnsAsync(mediaItems);
+
+            // Act
+            var result = await _mediaService.GetMediaItemsWithTitleAsync(title);
+
+            // Assert
+            Assert.Equal(mediaItems, result);
+        }
+
+        [Fact]
+        public async Task GetMediaItemsWithTitleAsync_WithInvalidTitle_ShouldThrowArgumentException()
+        {
+            // Arrange
+            var title = "T"; // Too short title
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _mediaService.GetMediaItemsWithTitleAsync(title));
+        }
+
+        [Fact]
+        public async Task RemoveMediaItemAsync_WithValidItem_ShouldRemoveItemFromDatabase()
+        {
+            // Arrange
+            var item = new MediaItem
+            {
+                Id = 1,
+                Title = "Test Title",
+                Genre = "Test Genre",
+                ImageUrl = "http://www.test.com/test.jpg",
+                Description = "Test Description",
+                MediaTypeId = 1
+            };
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetByIdAsync(1))
+                .ReturnsAsync(item);
+
+            _mediaTypeRepositoryMock
+                .Setup(x => x.GetByIdAsync(1))
+                .ReturnsAsync(new MediaType { Id = 1, Name = "Test MediaType" });
+
+            // Act
+            await _mediaService.RemoveMediaItemAsync(item);
+
+            // Assert
+            _mediaRepositoryMock.Verify(x => x.RemoveAsync(item), Times.Once);
+        }
+
+        [Fact]
+        public async Task RemoveMediaItemAsync_WithInvalidItem_ShouldThrowArgumentException()
+        {
+            // Arrange
+            var item = new MediaItem
+            {
+                Id = 1,
+                Title = "T",
+                Genre = "T",
+                ImageUrl = "",
+                Description = "Test Description",
+                MediaTypeId = 1
+            };
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetByIdAsync(1))
+                .ReturnsAsync(item);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _mediaService.RemoveMediaItemAsync(item));
+        }
+
+        [Fact]
+        public async Task UpdateMediaItemAsync_WithValidItem_ShouldUpdateItemInDatabase()
+        {
+            // Arrange
+            var item = new MediaItem
+            {
+                Id = 1,
+                Title = "Test Title",
+                Genre = "Test Genre",
+                ImageUrl = "http://www.test.com/test.jpg",
+                Description = "Test Description",
+                MediaTypeId = 1
+            };
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetByIdAsync(1))
+                .ReturnsAsync(item);
+
+            _mediaTypeRepositoryMock
+                .Setup(x => x.GetByIdAsync(1))
+                .ReturnsAsync(new MediaType { Id = 1, Name = "Test MediaType" });
+
+            // Act
+            await _mediaService.UpdateMediaItemAsync(item);
+
+            // Assert
+            _mediaRepositoryMock.Verify(x => x.UpdateAsync(item), Times.Once);
+        }
+
+        [Fact]
+        public async Task UpdateMediaItemAsync_WithInvalidItem_ShouldThrowArgumentException()
+        {
+            // Arrange
+            var item = new MediaItem
+            {
+                Id = 1,
+                Title = "T",
+                Genre = "T",
+                ImageUrl = "",
+                Description = "Test Description",
+                MediaTypeId = 1
+            };
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetByIdAsync(1))
+                .ReturnsAsync(item);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _mediaService.UpdateMediaItemAsync(item));
         }
 
         [Fact]
