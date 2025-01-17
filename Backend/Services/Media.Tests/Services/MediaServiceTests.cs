@@ -121,6 +121,112 @@ namespace Media.Tests.Services
         }
 
         [Fact]
+        public async Task ValidateMediaItemByMediaTypeAsync_WithValidMediaItem_ShouldReturnTrue()
+        {
+            // Arrange
+            var mediaType = new MediaType { Id = 1, Name = "Test MediaType" };
+
+            _mediaTypeRepositoryMock
+                .Setup(x => x.GetByIdAsync(1))
+                .ReturnsAsync(mediaType);
+
+            // Act
+            var result = await _mediaService.ValidateMediaItemByMediaTypeAsync(mediaType.Id);
+
+            // Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task ValidateMediaItemByMediaTypeAsync_WithInvalidMediaItem_ShouldReturnFalse()
+        {
+            // Act
+            var result = await _mediaService.ValidateMediaItemByMediaTypeAsync(1);
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task ValidateMediaItemByImageUrlAsync_WithValidImageUrl_ShouldReturnTrue()
+        {
+            // Arrange
+            var imageUrl = "http://www.test.com/test.jpg";
+
+            // Act
+            var result = await _mediaService.ValidateMediaItemByImageUrlAsync(imageUrl);
+
+            // Assert
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("")] // Empty string
+        [InlineData(null)] // Null string
+        [InlineData("T")] // Too short string
+        [InlineData("Valid_Url test.com")] // Invalid URL
+        public async Task ValidateMediaItemByImageUrlAsync_WithInvalidImageUrl_ShouldReturnFalse(string imageUrl)
+        {
+            // Act
+            var result = await _mediaService.ValidateMediaItemByImageUrlAsync(imageUrl);
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task ValidateMediaItemByImageUrlAsync_WithTooLongImageUrl_ShouldReturnFalse()
+        {
+            // Arrange
+            var imageUrl = new string('T', 1001); // Too long string
+
+            // Act
+            var result = await _mediaService.ValidateMediaItemByImageUrlAsync(imageUrl);
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task ValidateMediaItemByDescriptionAsync_WithValidDescription_ShouldReturnTrue()
+        {
+            // Arrange
+            var description = new string('T', 2); // Minimum length
+
+            // Act
+            var result = await _mediaService.ValidateMediaItemByDescriptionAsync(description);
+
+            // Assert
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("")] // Empty string
+        [InlineData(null)] // Null string
+        [InlineData("T")] // Too short string
+        public async Task ValidateMediaItemByDescriptionAsync_WithInvalidDescription_ShouldReturnFalse(string description)
+        {
+            // Act
+            var result = await _mediaService.ValidateMediaItemByDescriptionAsync(description);
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public async Task ValidateMediaItemByDescriptionAsync_WithTooLongDescription_ShouldReturnFalse()
+        {
+            // Arrange
+            var description = new string('T', 1001); // Too long string
+
+            // Act
+            var result = await _mediaService.ValidateMediaItemByDescriptionAsync(description);
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
         public async Task AddMediaItemAsync_WithValidItem_ShouldAddItemToDatabase()
         {
             // Arrange

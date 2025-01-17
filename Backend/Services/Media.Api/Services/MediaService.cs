@@ -94,19 +94,19 @@ namespace Media.Api.Services
         public async Task<bool> ValidateMediaItemByDescriptionAsync(string description)
         {
             // Description should be at least 2 characters long and at most 1000 characters long
-            return await Task.FromResult(description.Length >= 2 && description.Length <= 1000);
+            return await Task.FromResult(!String.IsNullOrEmpty(description) && description.Length >= 2 && description.Length <= 1000);
         }
 
         public async Task<bool> ValidateMediaItemByGenreAsync(string genre)
         {
             // Genre should be at least 2 characters long and at most 100 characters long
-            return await Task.FromResult(genre.Length >= 2 && genre.Length <= 100);
+            return await Task.FromResult(!String.IsNullOrEmpty(genre) && genre.Length >= 2 && genre.Length <= 100);
         }
 
         public async Task<bool> ValidateMediaItemByImageUrlAsync(string imageUrl)
         {
-            // ImageUrl should be at least 2 characters long and at most 100 characters long, also it should be a valid URL
-            return await Task.FromResult(imageUrl.Length >= 2 && imageUrl.Length <= 100 && Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute));
+            // ImageUrl should be at least 2 characters long and at most 1000 characters long, also it should be a valid URL
+            return await Task.FromResult(!String.IsNullOrEmpty(imageUrl) && imageUrl.Length >= 2 && imageUrl.Length <= 1000 && Uri.IsWellFormedUriString(imageUrl, UriKind.Absolute));
         }
 
         public async Task<bool> ValidateMediaItemByMediaTypeAsync(int mediaTypeId)
