@@ -46,19 +46,37 @@ namespace Media.Api.Services
             return await _mediaRepository.GetByMediaTypeIdAsync(mediaTypeId);
         }
 
-        public Task<IEnumerable<MediaItem>> GetMediaItemsWithTitleAsync(string title)
+        public async Task<IEnumerable<MediaItem>> GetMediaItemsWithTitleAsync(string title)
         {
-            throw new NotImplementedException();
+            // Validate title
+            if (!await ValidateMediaItemByTitleAsync(title))
+            {
+                throw new ArgumentException("Title is not valid");
+            }
+
+            return await _mediaRepository.GetByTitleAsync(title);
         }
 
-        public Task RemoveMediaItemAsync(MediaItem mediaItem)
+        public async Task RemoveMediaItemAsync(MediaItem mediaItem)
         {
-            throw new NotImplementedException();
+            // Validate mediaItem
+            if (!await ValidateMediaItemAsync(mediaItem))
+            {
+                throw new ArgumentException("MediaItem is not valid");
+            }
+
+            await _mediaRepository.RemoveAsync(mediaItem);
         }
 
-        public Task UpdateMediaItemAsync(MediaItem mediaItem)
+        public async Task UpdateMediaItemAsync(MediaItem mediaItem)
         {
-            throw new NotImplementedException();
+            // Validate mediaItem
+            if (!await ValidateMediaItemAsync(mediaItem))
+            {
+                throw new ArgumentException("MediaItem is not valid");
+            }
+
+            await _mediaRepository.UpdateAsync(mediaItem);
         }
 
         public async Task<bool> ValidateMediaItemAsync(MediaItem mediaItem)

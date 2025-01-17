@@ -15,5 +15,11 @@ namespace Media.Api.Data
             var mediaDbContext = (MediaDbContext)_context;
             return await mediaDbContext.MediaItems.Where(m => m.MediaTypeId == mediaTypeId).ToListAsync();
         }
+
+        public async Task<IEnumerable<MediaItem>> GetByTitleAsync(string title)
+        {
+            var mediaDbContext = (MediaDbContext)_context;
+            return await mediaDbContext.MediaItems.Where(m => m.Title == title).ToListAsync();
+        }
     }
 }
