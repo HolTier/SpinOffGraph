@@ -401,57 +401,6 @@ namespace Media.Tests.Services
         }
 
         [Fact]
-        public async Task RemoveMediaItemAsync_WithValidItem_ShouldRemoveItemFromDatabase()
-        {
-            // Arrange
-            var item = new MediaItem
-            {
-                Id = 1,
-                Title = "Test Title",
-                Genre = "Test Genre",
-                ImageUrl = "http://www.test.com/test.jpg",
-                Description = "Test Description",
-                MediaTypeId = 1
-            };
-
-            _mediaRepositoryMock
-                .Setup(x => x.GetByIdAsync(1))
-                .ReturnsAsync(item);
-
-            _mediaTypeRepositoryMock
-                .Setup(x => x.GetByIdAsync(1))
-                .ReturnsAsync(new MediaType { Id = 1, Name = "Test MediaType" });
-
-            // Act
-            await _mediaService.RemoveMediaItemAsync(item);
-
-            // Assert
-            _mediaRepositoryMock.Verify(x => x.RemoveAsync(item), Times.Once);
-        }
-
-        [Fact]
-        public async Task RemoveMediaItemAsync_WithInvalidItem_ShouldThrowArgumentException()
-        {
-            // Arrange
-            var item = new MediaItem
-            {
-                Id = 1,
-                Title = "T",
-                Genre = "T",
-                ImageUrl = "",
-                Description = "Test Description",
-                MediaTypeId = 1
-            };
-
-            _mediaRepositoryMock
-                .Setup(x => x.GetByIdAsync(1))
-                .ReturnsAsync(item);
-
-            // Act & Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => _mediaService.RemoveMediaItemAsync(item));
-        }
-
-        [Fact]
         public async Task UpdateMediaItemAsync_WithValidItem_ShouldUpdateItemInDatabase()
         {
             // Arrange
@@ -527,6 +476,38 @@ namespace Media.Tests.Services
 
             // Assert
             Assert.Equal(mediaItems, result);
+        }
+
+        [Fact]
+        public async Task RemoveMediaItemAsync_WithValidId_ShouldRemoveItemFromDatabase()
+        {
+            // Arrange
+            var id = 1;
+            var item = new MediaItem { Id = id, Title = "Test Title" };
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetByIdAsync(id))
+                .ReturnsAsync(item);
+
+            // Act
+            await _mediaService.RemoveMediaItemAsync(id);
+
+            // Assert
+            _mediaRepositoryMock.Verify(x => x.RemoveAsync(item), Times.Once);
+        }
+
+        [Fact]
+        public async Task RemoveMediaItemAsync_WithInvalidId_ShouldThrowArgumentException()
+        {
+            // Arrange
+            var id = 1;
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetByIdAsync(id))
+                .ReturnsAsync((MediaItem)null);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _mediaService.RemoveMediaItemAsync(id));
         }
     }
 }

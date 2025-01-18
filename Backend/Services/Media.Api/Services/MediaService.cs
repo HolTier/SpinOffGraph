@@ -57,12 +57,13 @@ namespace Media.Api.Services
             return await _mediaRepository.GetByTitleAsync(title);
         }
 
-        public async Task RemoveMediaItemAsync(MediaItem mediaItem)
+        public async Task RemoveMediaItemAsync(int id)
         {
-            // Validate mediaItem
-            if (!await ValidateMediaItemAsync(mediaItem))
+            var mediaItem = await _mediaRepository.GetByIdAsync(id);
+
+            if (mediaItem == null)
             {
-                throw new ArgumentException("MediaItem is not valid");
+                throw new ArgumentException("MediaItem not found");
             }
 
             await _mediaRepository.RemoveAsync(mediaItem);

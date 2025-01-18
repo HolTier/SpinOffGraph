@@ -10,7 +10,7 @@ namespace Media.Api.Services
         Task<IEnumerable<MediaItem>> GetMediaItemsByMediaTypeAsync(int mediaTypeId);
         Task AddMediaItemAsync(MediaItem mediaItem);
         Task UpdateMediaItemAsync(MediaItem mediaItem);
-        Task RemoveMediaItemAsync(MediaItem mediaItem);
+        Task RemoveMediaItemAsync(int id);
 
         Task<bool> ValidateMediaItemAsync(MediaItem mediaItem);
         Task<bool> ValidateMediaItemByTitleAsync(string title);
