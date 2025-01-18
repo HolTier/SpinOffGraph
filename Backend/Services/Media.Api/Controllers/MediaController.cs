@@ -150,5 +150,23 @@ namespace Media.Api.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMediaItem(int id)
+        {
+            try
+            {
+                await _mediaService.RemoveMediaItemAsync(id);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }
