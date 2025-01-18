@@ -1,5 +1,6 @@
 using Media.Api.Data;
 using Media.Api.Models;
+using Media.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Shared.DataAccess;
 
@@ -24,9 +25,12 @@ namespace Media.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Add services to the container.
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IMediaRepository, MediaRepository>();
             builder.Services.AddScoped<IMediaTypeRepository, MediaTypeRepository>();
+
+            builder.Services.AddTransient<IMediaService, MediaService>();
 
             var app = builder.Build();
 
