@@ -21,7 +21,7 @@ namespace Media.Api.Controllers
             try
             {                 
                 var media = await _mediaService.GetMediaItemsAsync();
-                if (media == null)
+                if (media == null || !media.Any())
                 {
                     return NotFound();
                 }
@@ -35,7 +35,6 @@ namespace Media.Api.Controllers
             {
                 return StatusCode(500, e.Message);
             }
-           
         }
 
         [HttpGet("{id}")]
@@ -66,7 +65,7 @@ namespace Media.Api.Controllers
             try
             {
                 var media = await _mediaService.GetMediaItemsWithTitleAsync(title);
-                if (media == null)
+                if (media == null || !media.Any())
                 {
                     return NotFound();
                 }
@@ -88,7 +87,7 @@ namespace Media.Api.Controllers
             try
             {
                 var media = await _mediaService.GetMediaItemsByMediaTypeAsync(mediaTypeId);
-                if (media == null)
+                if (media == null || !media.Any())
                 {
                     return NotFound();
                 }

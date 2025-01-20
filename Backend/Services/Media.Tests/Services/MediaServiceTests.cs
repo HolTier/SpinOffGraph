@@ -338,8 +338,16 @@ namespace Media.Tests.Services
         [Fact]
         public async Task GetMediaItemByIdAsync_WithInvalidId_ShouldReturnNull()
         {
+            // Arrange
+            var id = 1;
+            var item = new MediaItem { Id = id, Title = "Test Title" };
+
+            _mediaRepositoryMock
+                .Setup(x => x.GetByIdAsync(id))
+                .ReturnsAsync(item);
+
             // Act
-            var result = await _mediaService.GetMediaItemByIdAsync(1);
+            var result = await _mediaService.GetMediaItemByIdAsync(2);
 
             // Assert
             Assert.Null(result);
